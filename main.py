@@ -9,14 +9,23 @@ def char_count(string):
     return chars_dict 
 
 def sort_dict(dict): # sorts by largest value.
-    sorted_dict = sorted(dict.items(), key=lambda item: item[1], reverse=True)
-    return sorted_dict
+    sorted_list = sorted(dict.items(), key=lambda item: item[1], reverse=True)
+    return sorted_list
+
+def final_print(list, word_count, file):
+    print(f"""--- Begin report of {file} ---
+    \r{word_count} words found in the document\n""")
+    for l in list:
+        print(f"The '{l[0]} character was found {l[1]} times'")
+    print("--- End report ---")
 
 def main():
-    PATH = "books/frankenstein.txt" # use text of your own.
-    with open(PATH) as f:
+    PATH_TO_TEXT = "books/frankenstein.txt" # use text of your own.
+    with open(PATH_TO_TEXT) as f:
         file_contents = f.read()
-        dict = char_count(file_contents)
-        print(dict)
-        print(sort_dict(dict))
+        words = len(file_contents.split())
+        
+        chars = char_count(file_contents)
+        sorted_chars = sort_dict(chars)
+        final_print(sorted_chars, words, PATH_TO_TEXT)
 main()
